@@ -39,9 +39,11 @@ public class GunPickUp : MonoBehaviour
     }
 
     void PickUpGun()
-    {
-        gunObject.transform.parent = player.transform;
+    { 
         gunObject.transform.localPosition = gunTransform.position;
         gunObject.transform.rotation = player.transform.rotation;
+        gunObject.transform.parent = player.transform;
+
+        player.GetComponent<PlayerShooting>().GunAcquired();
     }
 }
