@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public bool hasGun = false;
 
     float mouseX;
+    float mouseY;
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -42,10 +43,10 @@ public class PlayerMovement : MonoBehaviour
     {
 
         mouseX += Input.GetAxis("Mouse X");
-        //mouseY += Input.GetAxis("Mouse Y") * sensitivity;
+        mouseY += Input.GetAxis("Mouse Y") * sensitivity;
 
-        //mouseY = Mathf.Clamp(mouseY, -20, 30);
+        mouseY = Mathf.Clamp(mouseY, -20, 30);
 
-        transform.rotation = Quaternion.Euler(new Vector3(0, mouseX * sensitivity, 0));
+        transform.rotation = Quaternion.Euler(new Vector3(-mouseY, mouseX * sensitivity, 0));
     }
 }
