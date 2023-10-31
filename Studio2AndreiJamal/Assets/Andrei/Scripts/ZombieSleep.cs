@@ -12,7 +12,7 @@ public class ZombieSleep : MonoBehaviour
         if (other.gameObject.tag == "Head")
         {
             Transform currentTransform = other.transform.parent;
-            while (currentTransform.gameObject.name != "ZombieObject")
+            while (currentTransform.gameObject.tag != "Zombie")
             {
                 currentTransform = currentTransform.parent;
             }

@@ -37,7 +37,7 @@ public class ZombieFollow : MonoBehaviour
             FollowPlayer();
         }
 
-        if(!isFollowing && (transform.position - startPosition).magnitude < 0.5f)
+        if(!isFollowing && (transform.position - startPosition).magnitude < 3.0f)
         {
             anim.SetBool("Idle", true);
         }

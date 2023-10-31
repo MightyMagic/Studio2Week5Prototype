@@ -7,6 +7,8 @@ public class GunPickUp : MonoBehaviour
     [SerializeField] GameObject gunObject;
     [SerializeField] Transform gunTransform;
 
+    [SerializeField] GameObject floatingText;
+
     GameObject player;
 
     bool playerNearGun = false;
@@ -31,10 +33,10 @@ public class GunPickUp : MonoBehaviour
 
     private void Update()
     {
-        if(playerNearGun && Input.GetKeyDown(KeyCode.Space)) 
+        if(playerNearGun && Input.GetKeyDown(KeyCode.E)) 
         { 
             PickUpGun();
-           // Destroy(this);
+            Destroy(floatingText);
         }
     }
 

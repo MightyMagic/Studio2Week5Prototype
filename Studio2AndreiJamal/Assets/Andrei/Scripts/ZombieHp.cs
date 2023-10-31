@@ -34,8 +34,11 @@ public class ZombieHp : MonoBehaviour
             anim.SetBool("Idle", true);
             this.gameObject.GetComponent<ZombieFollow>().Stunned();
             yield return new WaitForSeconds(2f);
-            anim.SetBool("Idle", false);
-            this.gameObject.GetComponent<ZombieFollow>().isFollowing=true;
+            if(anim != null)
+            {
+                anim.SetBool("Idle", false);
+                this.gameObject.GetComponent<ZombieFollow>().isFollowing = true;
+            }     
         }
         else
         {

@@ -12,6 +12,7 @@ public class MapCanvasLogic : MonoBehaviour
 
     [SerializeField] GameObject crossHairCanvas;
     [SerializeField] GameObject mapCanvas;
+    [SerializeField] GameObject hpCanvas;
 
     [SerializeField] float leftXCoord;
     [SerializeField] float bottomZCoord;
@@ -22,8 +23,8 @@ public class MapCanvasLogic : MonoBehaviour
     void Start()
     {
         mapOpened = false;
-        mapCanvas.SetActive(false);
-        crossHairWasClosed= false;
+        DisableAllCanvases();
+        hpCanvas.SetActive(true);
         
     }
 
@@ -49,6 +50,7 @@ public class MapCanvasLogic : MonoBehaviour
             crossHairCanvas.SetActive(false);
             crossHairWasClosed = true;
         }
+        DisableAllCanvases();
         mapCanvas.SetActive(true);
         
 
@@ -86,6 +88,14 @@ public class MapCanvasLogic : MonoBehaviour
         }
         
         mapCanvas.SetActive(false);
+        hpCanvas.SetActive(true);
         Time.timeScale = 1;
+    }
+
+    void DisableAllCanvases()
+    {
+        crossHairCanvas.SetActive(false);
+        mapCanvas.SetActive(false);
+        hpCanvas.SetActive(false);
     }
 }

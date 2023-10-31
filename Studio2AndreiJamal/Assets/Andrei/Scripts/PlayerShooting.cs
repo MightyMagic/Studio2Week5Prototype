@@ -20,6 +20,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] GameObject playerBarrel;
 
     [SerializeField] TextMeshProUGUI ammoText;
+    [SerializeField] GameObject glassText;
 
 
     bool gunAcquired = false;
@@ -47,8 +48,8 @@ public class PlayerShooting : MonoBehaviour
             StartCoroutine(Reload());
         }
 
-       Ray ray = new Ray(playerBarrel.transform.position, transform.forward);
-       Debug.DrawRay(ray.origin, ray.direction * 10f, Color.green);
+      // Ray ray = new Ray(playerBarrel.transform.position, transform.forward);
+      // Debug.DrawRay(ray.origin, ray.direction * 10f, Color.green);
     }
 
     void Shoot()
@@ -84,23 +85,44 @@ public class PlayerShooting : MonoBehaviour
             if (hitObject.CompareTag("Head"))
             {
                 Transform currentTransform = hitObject.transform.parent;
-                while (currentTransform.gameObject.name != "ZombieObject")
+                while (currentTransform.gameObject.tag != "Zombie")
                 {
                     currentTransform = currentTransform.parent;
                 }
                 GameObject zombie = currentTransform.gameObject;
+
+                GameObject modelZombie = zombie.transform.Find("man_zombie").gameObject;
+                modelZombie = modelZombie.transform.GetChild(0).gameObject;
+                modelZombie = modelZombie.transform.GetChild(0).gameObject;
+                StartCoroutine(ZombieTurnsRed(modelZombie));
+
                 StartCoroutine(zombie.GetComponent<ZombieHp>().HeadShot());
             }
 
             if (hitObject.CompareTag("Body"))
             {
                 Transform currentTransform = hitObject.transform.parent;
-                while (currentTransform.gameObject.name != "ZombieObject")
+                while (currentTransform.gameObject.tag != "Zombie")
                 {
                     currentTransform = currentTransform.parent;
                 }
                 GameObject zombie = currentTransform.gameObject;
+
+                GameObject modelZombie = zombie.transform.Find("man_zombie").gameObject;
+                modelZombie = modelZombie.transform.GetChild(0).gameObject;
+                modelZombie = modelZombie.transform.GetChild(0).gameObject;
+                StartCoroutine(ZombieTurnsRed(modelZombie));
+
                 zombie.GetComponent<ZombieHp>().BodyShot();
+
+                
+            }
+
+            if (hitObject.CompareTag("Glass"))
+            {
+                if(glassText != null)
+                    Destroy(glassText);
+                Destroy(hitObject);
             }
 
             print("Hit this " + hitObject.name);
@@ -146,5 +168,22 @@ public class PlayerShooting : MonoBehaviour
         gunAcquired= true;
         crossHair.SetActive(true);
 
+    }
+
+    public void GainAmmo(int ammo)
+    {
+        ammoTotal += ammo;
+        UpdateAmmoText();
+    }
+
+    IEnumerator ZombieTurnsRed(GameObject model)
+    {
+        SkinnedMeshRenderer renderer = model.GetComponent<SkinnedMeshRenderer>();
+        Color old = renderer.material.color;
+        Color col = Color.red;
+        renderer.material.color = col;
+        yield return new WaitForSeconds(0.5f);
+        if(renderer !=null)
+            renderer.material.color = old;  
     }
 }
