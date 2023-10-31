@@ -43,7 +43,7 @@ public class FloatingText : MonoBehaviour
             canvas.SetActive(true);
             m_TextMeshPro.text = m_Text;
         }
-        if(isInteractive)
+        if(isInteractive && other.gameObject.tag == "Player")
         {
             inside = true;
         }

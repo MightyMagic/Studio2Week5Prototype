@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapCanvasLogic : MonoBehaviour
 {
@@ -40,6 +41,11 @@ public class MapCanvasLogic : MonoBehaviour
         {
             mapOpened = !mapOpened;
             CloseMap();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape) && mapOpened)
+        {
+            SceneManager.LoadScene("Main Menu");
         }
     }
 
